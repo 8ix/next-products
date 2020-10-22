@@ -37,8 +37,8 @@ const OrderItems = (props) => {
             <Title>
                 Items to Order
             </Title>
-            <TextInput type="number" placeholder="Items Required" />
-            <Button>Calculate Order</Button>
+            <TextInput type="number" name="orderItems" placeholder="Items Required" />
+            <Button onClick={() => props.calculateOrder("orderItems")}>Calculate Order</Button>
 
             <Orders>
                 <Order size={250} qty={2} />

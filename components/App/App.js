@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PageWrapper from '../UI/PageWrapper/PageWrapper';
 import OrderItems from '../OrderItems/OrderItems';
 import AvailablePacks from '../AvailablePacks/AvailablePacks';
+import axios from 'axios';
 
 class App extends Component {
 
@@ -14,6 +15,25 @@ class App extends Component {
             2000,
             5000
         ]
+    }
+
+    calculateOrder(items){
+        const itemsToOrder = parseInt(document.getElementsByName(items)[0].value);
+
+        if(itemsToOrder > 0){
+            axios({
+                method: 'get',
+                url: 'https://ua0g88sr31.execute-api.us-east-1.amazonaws.com/dev',
+                data: {
+                  items: itemsToOrder,
+                  packs: "30,40,50"
+                }
+              }).then((response) => {
+                console.log(response);
+              }, (error) => {
+                console.log(error);
+              });
+        }
     }
     
     addPackSize(size){
@@ -42,7 +62,9 @@ class App extends Component {
     render(){
         return(
             <PageWrapper>
-                <OrderItems />
+                <OrderItems
+                    calculateOrder={this.calculateOrder.bind(this)}
+                />
                 <AvailablePacks 
                     packs={this.state.packSizes} 
                     addPack={this.addPackSize.bind(this)}
