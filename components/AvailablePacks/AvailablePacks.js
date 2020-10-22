@@ -33,6 +33,10 @@ const Packs = styled.div`
 
 const AvailablePacks = (props) => {
 
+    const packs = props.packs.map(function(pack){
+        return <Pack key={'key-'+pack} size={pack} removePack={props.removePack} />
+    });
+
     return (
         <Container direction="column">
             <Title>
@@ -40,15 +44,11 @@ const AvailablePacks = (props) => {
             </Title>
 
             <Packs>
-                <Pack size={250} />
-                <Pack size={500} />
-                <Pack size={1000} />
-                <Pack size={2000}/>
-                <Pack size={5000} />
+                {packs}
             </Packs>
 
-            <TextInput type="text" name="packsize" placeholder="Pack Size" />
-            <Button>Add New Pack Size</Button>
+            <TextInput type="number" name="packsize" placeholder="Pack Size" />
+            <Button onClick={() => props.addPack("packsize")}>Add New Pack Size</Button>
         </Container>
     );
 }

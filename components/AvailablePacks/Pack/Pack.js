@@ -28,7 +28,7 @@ const Pack = (props) => {
     return (
         <StyledPack>
             <span>{props.size}</span>
-            <Remove>
+            <Remove onClick={() => props.removePack(props.size)}>
                 Remove
             </Remove>
         </StyledPack>
