@@ -19,6 +19,7 @@ class App extends Component {
 
     calculateOrder(items){
         const itemsToOrder = parseInt(document.getElementsByName(items)[0].value);
+        const packSizes = [...this.state.packSizes];
 
         if(itemsToOrder > 0){
             axios({
@@ -26,7 +27,7 @@ class App extends Component {
                 url: 'https://ua0g88sr31.execute-api.us-east-1.amazonaws.com/dev',
                 data: {
                   items: itemsToOrder,
-                  packs: "30,40,50"
+                  packs: packSizes.join(',')
                 }
               }).then((response) => {
                 console.log(response);
