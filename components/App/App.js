@@ -8,33 +8,34 @@ import axios from 'axios';
 class App extends Component {
 
     state = {
+        order:[],
         packSizes: [
             250,
             500,
             1000,
             2000,
             5000
-        ]
+        ],
+        loading:false
     }
 
     calculateOrder(items){
         const itemsToOrder = parseInt(document.getElementsByName(items)[0].value);
         const packSizes = [...this.state.packSizes];
+        this.setState({order:[],loading:true});
 
         if(itemsToOrder > 0){
             axios({
                 method: 'get',
-                url: 'https://ua0g88sr31.execute-api.us-east-1.amazonaws.com/dev',
-                data: {
-                  items: itemsToOrder,
-                  packs: packSizes.join(',')
-                }
+                url: 'https://ua0g88sr31.execute-api.us-east-1.amazonaws.com/dev?items='+itemsToOrder+'&packs='+packSizes.join(',')
               }).then((response) => {
-                console.log(response);
+                this.setState({order:response.data,loading:false});
               }, (error) => {
                 console.log(error);
               });
-        }
+        }else{
+            this.setState({order:[],loading:true});
+        }   
     }
     
     addPackSize(size){
@@ -64,6 +65,8 @@ class App extends Component {
         return(
             <PageWrapper>
                 <OrderItems
+                    loading={this.state.loading}
+                    order={this.state.order}
                     calculateOrder={this.calculateOrder.bind(this)}
                 />
                 <AvailablePacks 

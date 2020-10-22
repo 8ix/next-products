@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Container from '../UI/Container/Container';
 import Button from '../UI/Button/Button';
 import Order from './Order/Order';
+import Spinner from '../UI/Spinner/Spinner';
 
 const Title = styled.h1`
    margin:auto;
@@ -30,7 +31,28 @@ const Orders = styled.div`
     flex-direction:row;
 `;
 
+const Message = styled.p`
+    text-align:center;
+`;
+
 const OrderItems = (props) => {
+
+    let title = "";
+    let order = "";
+    let spinner = "";
+
+    const items = props.order.map(function(pack){
+        return <Order size={pack.size} qty={pack.qty} />
+    })
+
+    if(items.length > 0){
+        title= <Message>Packs Required to fulfil the order</Message>
+        order = <Orders>{items}</Orders>
+    }
+
+    if(props.loading){
+       spinner = <Spinner />
+    }
 
     return (
         <Container direction="column">
@@ -39,12 +61,9 @@ const OrderItems = (props) => {
             </Title>
             <TextInput type="number" name="orderItems" placeholder="Items Required" />
             <Button onClick={() => props.calculateOrder("orderItems")}>Calculate Order</Button>
-
-            <Orders>
-                <Order size={250} qty={2} />
-                <Order size={500} qty={1} />
-                <Order size={2000} qty={3} />
-            </Orders>
+            {spinner}
+            {title}
+            {order}
         </Container>
     );
 }

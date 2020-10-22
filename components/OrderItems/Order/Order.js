@@ -12,14 +12,14 @@ const StyledOrder = styled.div`
    margin-top:20px;
    margin-bottom:20px;
    overflow:hidden;
-   padding-left:10px;
+   padding-right:15px;
 `;
 
 const Qty = styled.button`
     background-color:blue;
     color:#fff;
     font-size:1rem;
-    margin-left:10px;
+    margin-right:10px;
     border:0;
 `;
 
@@ -27,10 +27,10 @@ const Order = (props) => {
 
     return (
         <StyledOrder>
-            <span>{props.size}</span>
             <Qty>
-                x {props.qty}
+                {props.qty} x
             </Qty>
+            <span>{props.size}</span>
         </StyledOrder>
     );
 }
