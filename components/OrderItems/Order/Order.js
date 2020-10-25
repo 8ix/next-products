@@ -21,6 +21,13 @@ const Qty = styled.button`
     font-size:1rem;
     margin-right:10px;
     border:0;
+    height:100%;
+    padding-left:20px;
+    margin-left:-10px;
+
+    @media only screen and (max-width: 850px) {
+        height:37px;
+    }
 `;
 
 const Order = (props) => {

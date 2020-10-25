@@ -57,7 +57,7 @@ const OrderItems = (props) => {
         return <Order size={pack.size} qty={pack.qty} />
     })
 
-    items = chunk(items,2);
+    items = chunk(items,4);
 
     for (let i = 0; i < items.length; i++) {
         list.push(<Row key={"row_"+i}>{items[i]}</Row>);
