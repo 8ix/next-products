@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { chunk } from '../../lib/common';
 
 import Container from '../UI/Container/Container';
 import Pack from './Pack/Pack';
@@ -27,15 +28,33 @@ const StyledButton = styled.button`
 
 const Packs = styled.div`
     display:flex;
+    flex-direction:column;
+`;
+
+const Row = styled.div`
+    width:100%;
+    display:flex;
     flex-direction:row;
+
+    @media only screen and (max-width: 850px) {
+        flex-direction: column;
+    }
 `;
 
 
 const AvailablePacks = (props) => {
 
-    const packs = props.packs.map(function(pack){
+    let list = [];
+
+    let packs = props.packs.map(function(pack){
         return <Pack key={'key-'+pack} size={pack} removePack={props.removePack} />
     });
+
+    packs = chunk(packs,4);
+
+    for (let i = 0; i < packs.length; i++) {
+        list.push(<Row key={"row_"+i}>{packs[i]}</Row>);
+    }
 
     return (
         <Container direction="column">
@@ -44,7 +63,7 @@ const AvailablePacks = (props) => {
             </Title>
 
             <Packs>
-                {packs}
+                {list}
             </Packs>
 
             <TextInput type="number" name="packsize" placeholder="Pack Size" />

@@ -8,7 +8,39 @@ import axios from 'axios';
 class App extends Component {
 
     state = {
-        order:[],
+        order:[
+            {
+                qty: 4,
+                size: 5
+            },
+            {
+                qty: 4,
+                size: 10
+            },
+            {
+                qty: 4,
+                size: 50
+            },{
+                qty: 4,
+                size: 100
+            },
+            {
+                qty: 4,
+                size: 300
+            },
+            {
+                qty: 4,
+                size: 3000
+            },
+            {
+                qty: 4,
+                size: 2000
+            },
+            {
+                qty: 4,
+                size: 1000
+            }
+        ],
         packSizes: [
             250,
             500,

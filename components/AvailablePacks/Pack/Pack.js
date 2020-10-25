@@ -21,6 +21,13 @@ const Remove = styled.button`
     font-size:1rem;
     margin-left:10px;
     border:0;
+    height:100%;
+    padding-right:20px;
+    margin-right:-10px;
+
+    @media only screen and (max-width: 850px) {
+        height:37px;
+    }
 `;
 
 const Pack = (props) => {

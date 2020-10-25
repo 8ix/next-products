@@ -5,6 +5,7 @@ import Container from '../UI/Container/Container';
 import Button from '../UI/Button/Button';
 import Order from './Order/Order';
 import Spinner from '../UI/Spinner/Spinner';
+import { chunk } from '../../lib/common';
 
 const Title = styled.h1`
    margin:auto;
@@ -28,11 +29,21 @@ const StyledButton = styled.button`
 
 const Orders = styled.div`
     display:flex;
-    flex-direction:row;
+    flex-direction:column;
 `;
 
 const Message = styled.p`
     text-align:center;
+`;
+
+const Row = styled.div`
+    width:100%;
+    display:flex;
+    flex-direction:row;
+
+    @media only screen and (max-width: 850px) {
+        flex-direction: column;
+    }
 `;
 
 const OrderItems = (props) => {
@@ -40,14 +51,21 @@ const OrderItems = (props) => {
     let title = "";
     let order = "";
     let spinner = "";
+    let list = [];
 
-    const items = props.order.map(function(pack){
+    let items = props.order.map(function(pack){
         return <Order size={pack.size} qty={pack.qty} />
     })
 
-    if(items.length > 0){
+    items = chunk(items,2);
+
+    for (let i = 0; i < items.length; i++) {
+        list.push(<Row key={"row_"+i}>{items[i]}</Row>);
+    }
+
+    if(list.length > 0){
         title= <Message>Packs Required to fulfil the order</Message>
-        order = <Orders>{items}</Orders>
+        order = <Orders>{list}</Orders>
     }
 
     if(props.loading){
